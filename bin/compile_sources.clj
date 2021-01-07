@@ -5,7 +5,6 @@
    [clojure.string :as str]
    [clojure.tools.namespace.find :as ns.find]))
 
-
 ;; inspired by: https://www.jocas.lt/blog/post/uberdeps-for-aws-lambda/
 
 (defn compile-all []

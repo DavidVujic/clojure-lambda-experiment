@@ -1,6 +1,6 @@
 .PHONY: uberjar run
 
-JAR_NAME := app-core-lambda.jar
+JAR_NAME := lambda-experiment.jar
 
 clean:
 	rm -rf classes
