@@ -1,4 +1,4 @@
-.PHONY: uberjar run
+.PHONY: clean setup compile uberjar run
 
 JAR_NAME := lambda-experiment.jar
 
@@ -13,7 +13,7 @@ compile:
 	clj -A:compile
 
 uberjar: clean setup compile
-	clojure -A:uberjar --target target/${JAR_NAME} --main-class app.core
+	clj -A:uberjar --target target/${JAR_NAME} --main-class app.core
 
 run:
 	java -jar target/${JAR_NAME}
