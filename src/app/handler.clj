@@ -2,5 +2,5 @@
   (:gen-class
    :methods [^:static [handler [String] String]]))
 
-(defn -handler [s]
+(defn -handler []
   (println "Hello world from handler"))
