@@ -1,11 +1,9 @@
 (ns app.handler
   (:require [clojure.java.io :as io]
             [clojure.data.json :as json]
-            [clojure.walk :as walk]))
-
-(gen-class
- :name "app.handler"
- :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler])
+            [clojure.walk :as walk])
+  (:gen-class
+   :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
 (defn handler [data]
  (-> data
