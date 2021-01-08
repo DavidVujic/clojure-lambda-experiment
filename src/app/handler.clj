@@ -6,10 +6,10 @@
    :implements [com.amazonaws.services.lambda.runtime.RequestStreamHandler]))
 
 (defn handler [data]
- (-> data
-     walk/keywordize-keys
-     :message
-     (or "No message, I'm afraid ...")))
+  (-> data
+      walk/keywordize-keys
+      :message
+      (or "No message, I'm afraid ...")))
 
 (defn -handleRequest [_this input output _context]
   (with-open [reader (io/reader input)
