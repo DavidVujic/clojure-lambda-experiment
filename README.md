@@ -9,7 +9,7 @@ Experimenting with `AWS Lambda` and `Clojure`.
 
 #### Notes
 I downloaded GraalVM, extracted the downloaded file and ran a virus scan (ClamTK). The scanner found a potential threat, that confused me:
-a Node.js npm package called `imurmurhash.min.js`. ClamTK status for this file was: `PUA.Win.TrojanXored-1`.
+a Node.js npm package called `imurmurhash.min.js`. ClamTK status for this file was: `PUA.Win.Trojan.Xored-1`.
 
 My quick fix for this was to navigate to the `graalvm-ce-java11-21.0.0.2/languages` folder and delete the entire `js` folder before running any GraalVM commands.
 
