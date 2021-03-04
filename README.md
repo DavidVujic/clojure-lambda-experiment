@@ -3,8 +3,9 @@
 Experimenting with `AWS Lambda` and `Clojure`.
 
 * Ahead of time compilation (AOT) :heavy_check_mark:
-* Building an Uberjar :heavy_check_mark:
-* Building a native image with GraalVM (Work in progress) :boom:
+* Build an Uberjar :heavy_check_mark:
+* Build a native image with GraalVM :heavy_check_mark:
+* Run the compiled code in Docker (Work in progress) :boom:
 
 #### Resources
 * [A GraalVM guide](https://github.com/BrunoBonacci/graalvm-clojure/blob/master/doc/clojure-graalvm-native-binary.md) by Bruno Bonacci
