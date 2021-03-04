@@ -18,3 +18,6 @@
         (json/read)
         handler
         (json/write writer))))
+
+(defn -main [& _args]
+  (println "Hello world from main"))

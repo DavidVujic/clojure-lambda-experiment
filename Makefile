@@ -10,10 +10,16 @@ setup:
 	mkdir classes
 
 compile:
-	clj -A:compile
+	clj -M:compile
 
 uberjar: clean setup compile
-	clj -A:uberjar --target target/${JAR_NAME} --main-class app.core
+	clj -M:uberjar --target target/${JAR_NAME} --main-class app.handler
+
+graal: uberjar
+	native-image --report-unsupported-elements-at-runtime --initialize-at-build-time --no-server -jar ./target/${JAR_NAME} -H:Name=./target/graal-${JAR_NAME}
 
 run:
-	java -jar target/${JAR_NAME}
+	@java -jar target/${JAR_NAME}
+
+run-graaled:
+	@./target/graal-${JAR_NAME}
