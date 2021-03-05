@@ -22,7 +22,7 @@ uberjar: clean setup compile
 graal: uberjar
 	native-image --report-unsupported-elements-at-runtime \
                      --initialize-at-build-time \
-                     --no-server \
+                     --no-fallback \
                      -jar ${JAR_PATH} \
                      -H:Name=${TARGET_PATH}
 
