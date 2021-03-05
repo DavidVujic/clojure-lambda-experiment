@@ -24,3 +24,4 @@ Using Clojure 1.10.2 with GraalVM features/fixes (?)
 * [Building A Fast Command Line App With Clojure](https://kiramclean.com/blog/building-a-fast-command-line-app-with-clojure/) by Kira McLean
 * [How to AOT compile a Clojure application to a native binary and run it in AWS Lambda as a Docker image.](https://nitor.com/en/articles/fast-cold-starts-for-clojure-in-aws-lambda-using-graalvm-native-image) by Esko Luontola
 * [aws-lambda-java at Docker Hub](https://hub.docker.com/r/amazon/aws-lambda-java)
+* [GraalVM and Native images](https://www.graalvm.org/docs/getting-started/#native-images)
