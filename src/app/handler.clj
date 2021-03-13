@@ -1,7 +1,6 @@
 (ns app.handler
   (:require [clojure.data.json :as json]
-            [clojure.walk :as walk])
-  (:gen-class))
+            [clojure.walk :as walk]))
 
 (defn parse [data]
   (-> data
@@ -19,11 +18,6 @@
       first
       body
       json/write-str))
-
-(defn -main [& args]
-  (-> args
-      handle-request
-      println))
 
 (comment
   (-> '("{\"hello\":\"world\",\"message\":\"this is the message\"}")
