@@ -1,33 +1,38 @@
-.PHONY: clean setup compile uberjar run
+.PHONY: clean setup compile native file-access package
 
-TARGET_FOLDER := ./target
-JAR_NAME := lambda-experiment.jar
-NATIVE_NAME := graal-${JAR_NAME}
-JAR_PATH := ${TARGET_FOLDER}/${JAR_NAME}
-TARGET_PATH := ${TARGET_FOLDER}/${NATIVE_NAME}
+TARGET := ./target/lambda-experiment
+BOOTSTRAP := ./runtime/bootstrap
 
 clean:
 	rm -rf classes
 	rm -rf target
+	rm -rf package
 
-setup:
+setup: clean
 	mkdir classes
+	mkdir target
+	mkdir package
 
-compile:
-	clj -M:compile
+compile: setup
+	clojure -M -e "(compile 'app.handler)"
 
-uberjar: clean setup compile
-	clj -M:uberjar --target ${JAR_PATH} --main-class app.handler
-
-graal: uberjar
-	native-image --report-unsupported-elements-at-runtime \
+native: compile
+	native-image \
+                     -cp "$(shell clojure -Spath):classes" \
+                     -H:Name=${TARGET} \
+                     -H:+ReportExceptionStackTraces \
                      --initialize-at-build-time \
+                     --verbose \
                      --no-fallback \
-                     -jar ${JAR_PATH} \
-                     -H:Name=${TARGET_PATH}
+                     --no-server \
+                     "-J-Xmx3g" \
+                     app.handler
 
-run:
-	@java -jar ${JAR_PATH}
+file-access:
+	chmod 755 ${TARGET} ${BOOTSTRAP}
 
-run-graaled:
-	@${TARGET_PATH}
+package: native file-access
+	cp target/lambda-experiment package/lambda-experiment
+	cp runtime/bootstrap package/bootstrap
+	(cd package && \
+         zip function.zip bootstrap lambda-experiment)
