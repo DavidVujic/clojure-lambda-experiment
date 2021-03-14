@@ -1,5 +1,8 @@
-FROM public.ecr.aws/lambda/java:11
+FROM public.ecr.aws/lambda/provided:al2
 
-COPY target/graal-lambda-experiment.jar ${LAMBDA_TASK_ROOT}
+COPY runtime/bootstrap ${LAMBDA_RUNTIME_DIR}/bootstrap
 
-CMD ["app.handler::handleRequest"]
+WORKDIR ${LAMBDA_TASK_ROOT}
+COPY target/lambda-experiment lambda-experiment
+
+CMD [ "./lambda-experiment" ]

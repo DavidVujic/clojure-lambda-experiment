@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -euo pipefail
+
+# Processing
+while true
+do
+  RUNTIME_URL="http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime"
+  HEADERS="$(mktemp)"
+  # Get an event. The HTTP request will block until one is received
+  EVENT_DATA=$(curl -sS -LD "$HEADERS" -X GET "${RUNTIME_URL}/invocation/next")
+
+  # Extract request ID by scraping response headers received above
+  REQUEST_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
+
+  # Run the handler function from the script
+  RESPONSE=$($(echo "$_HANDLER") "$EVENT_DATA")
+
+  echo $?
+  if [ $? -eq 0 ]
+  then
+    # Send the response
+    curl -X POST "${RUNTIME_URL}/invocation/$REQUEST_ID/response" -d "$RESPONSE"
+  else
+    ERROR="{\"errorMessage\" : \"Error parsing event data.\", \"errorType\" : \"InvalidEventDataException\"}"
+    curl -X POST "${RUNTIME_URL}/invocation/$REQUEST_ID/error" -d "$ERROR" --header "Lambda-Runtime-Function-Error-Type: Unhandled"
+  fi
+done
